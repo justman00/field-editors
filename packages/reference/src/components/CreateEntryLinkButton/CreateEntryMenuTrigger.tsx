@@ -66,7 +66,7 @@ interface CreateEntryMenuTrigger {
   onSelect: (contentTypeId: string) => Promise<unknown>;
   testId?: string;
   dropdownSettings?: {
-    isAutoalignmentEnabled: boolean;
+    isAutoalignmentEnabled?: boolean;
     position: 'bottom-left' | 'bottom-right';
   };
   renderCustomDropdownItems?: CreateCustomEntryMenuItems;
@@ -80,8 +80,7 @@ export const CreateEntryMenuTrigger = ({
   onSelect,
   testId,
   dropdownSettings = {
-    isAutoalignmentEnabled: true,
-    position: 'bottom-left',
+    position: 'bottom-right',
   },
   renderCustomDropdownItems,
   children,
@@ -192,6 +191,11 @@ export const CreateEntryMenuTrigger = ({
             <Icon icon="Search" className={styles.searchIcon} />
           </div>
         )}
+        {renderCustomDropdownItems && (
+          <DropdownList className={styles.dropdownList} border="top">
+            {renderCustomDropdownItems({ closeMenu })}
+          </DropdownList>
+        )}
         <DropdownList
           className={styles.dropdownList}
           border="top"
@@ -228,11 +232,6 @@ export const CreateEntryMenuTrigger = ({
             </DropdownListItem>
           )}
         </DropdownList>
-        {renderCustomDropdownItems && (
-          <DropdownList className={styles.dropdownList} border="top">
-            {renderCustomDropdownItems({ closeMenu })}
-          </DropdownList>
-        )}
       </Dropdown>
     </span>
   );
